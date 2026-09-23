@@ -4,26 +4,41 @@
 
 /**
  * បើក ឬ បិទបង្ហាញផ្ទាំងកម្មវិធីពិសាភោជនាហារ (Timeline View Container)
+ * Toggle Banquet Timeline Program Visibility and Update ARIA State
  */
 function toggleProgram() {
     const timeline = document.getElementById('weddingTimeline');
-    if (timeline.classList.contains('collapsed')) {
+    const toggleButton = document.querySelector('.btn-program-toggle');
+
+    if (!timeline) return;
+
+    const isCollapsed = timeline.classList.contains('collapsed');
+
+    if (isCollapsed) {
         timeline.classList.remove('collapsed');
+        if (toggleButton) {
+            toggleButton.setAttribute('aria-expanded', 'true');
+        }
     } else {
         timeline.classList.add('collapsed');
+        if (toggleButton) {
+            toggleButton.setAttribute('aria-expanded', 'false');
+        }
     }
 }
 
 /**
  * បើកផែនទី Google Maps ទៅកាន់ទីតាំងភោជនីយដ្ឋាន
+ * Open Venue Map in a New Window/Tab
  */
 function openMap() {
-    // ទីតាំងតំណភ្ជាប់ទៅកាន់ផែនទីភោជនីយដ្ឋាន
-    window.open('https://tharahuokaing.github.io/restaurant1/', '_blank');
+    // ទីតាំងតំណភ្ជាប់ទៅកាន់ផែនទីភោជនីយដ្ឋាន / Restaurant Map Link
+    window.open('https://tharahuokaing.github.io/restaurant1/', '_blank', 'noopener,noreferrer');
 }
 
 /**
  * ដំណើរការរំកិលអេក្រង់ឡើងទៅផ្នែកខាងលើបង្អស់ (Scroll Back to Top)
+ * Smoothly Scroll Page Back to top
  */
 function scrollToTop() {
     window.scrollTo({
@@ -34,8 +49,9 @@ function scrollToTop() {
 
 /**
  * តាមដានការ Scroll របស់រមូរអេក្រង់ដើម្បីលាក់/បង្ហាញប៊ូតុង "ត្រឡប់ទៅកំពូល"
+ * Scroll Listener for Back-to-Top Button Visibility
  */
-window.onscroll = function() {
+window.addEventListener('scroll', function() {
     const topButton = document.getElementById("scrollTopBtn");
     if (topButton) {
         if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
@@ -44,4 +60,4 @@ window.onscroll = function() {
             topButton.style.display = "none";
         }
     }
-};
+});
